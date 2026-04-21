@@ -1,10 +1,16 @@
+import arrow
+
 class Assignment:
     def __init__(self,
             due_at_timestamp: int | None = None,
+            grace_time_secs: int | None = None,
             ...,
             ) -> None:
         self.due_at_timestamp: int | None = due_at_timestamp
         """ When an assignment is due, or None if there is no due date. """
+
+        self.grace_time_secs: int | None = grace_time_secs
+        """ Do not count a submission late if is only late by at most this number of seconds. """
 
         ...
 
@@ -32,9 +38,13 @@ def is_late(assignment: Assignment, submission: Submission) -> bool:
     if (due_timestamp is None):
         return False
 
-    # Get the timestamp for the submission.
+    # Get the timestamp for the submission, or now if there is no timestamp.
     submission_timestamp = student_submission.submission_timestamp
     if (submission_timestamp is None):
-        return False
+        submission_timestamp = int(arrow.now().timestamp())
 
-    return (submission_timestamp > due_timestamp)
+    grace_time_secs = assignment.grace_time_secs
+    if (grace_time_secs is None):
+        grace_time_secs = 0
+
+    return (submission_timestamp > (due_timestamp + grace_time_secs))
