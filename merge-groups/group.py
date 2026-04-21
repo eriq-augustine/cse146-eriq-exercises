@@ -16,3 +16,18 @@ class ProjectGroup:
         """ Remove the student from this group (if they are already in it). """
 
         ...
+
+    def merge(self, other: ProjectGroup) -> ProjectGroup:
+        """ Add all the members from the other group to this group. """
+
+        # If the other group is not valid, use this group.
+        if ((other is None) or (len(other.members) == 0)):
+            return self
+
+        # If this group is not valid, use the other group.
+        if ((self is None) or (len(self.members) == 0)):
+            return other
+
+        self.members = list(set(self.members + other.members))
+
+        return self
