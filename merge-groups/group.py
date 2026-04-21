@@ -8,7 +8,11 @@ class ProjectGroup:
         self.member: list[Student] = members
 
     def add(self, student: Student) -> ProjectGroup:
+        """ Add the student to this group (if they are not already in it). """
+
         ...
 
     def remove(self, student: Student) -> ProjectGroup:
+        """ Remove the student from this group (if they are already in it). """
+
         ...
