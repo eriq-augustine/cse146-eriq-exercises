@@ -1,34 +1,39 @@
 class Assignment:
-    ...
-
-    def get_due_at_timestamp(self) -> int | None:
-        """
-        Get a timestamp (Unix Time (seconds)) for when the assignment is due,
-        or None if there is no listed due date.
-        """
+    def __init__(self,
+            due_at_timestamp: int | None = None,
+            ...,
+            ) -> None:
+        self.due_at_timestamp: int | None = due_at_timestamp
+        """ When an assignment is due, or None if there is no due date. """
 
         ...
+
+    ...
 
 class Submission:
-    ...
-
-    def get_submission_timestamp(self) -> int | None:
+    def __init__(self,
+            submission_timestamp: int | None = None,
+            ...,
+            ) -> None:
+        self.submission_timestamp: int | None = submission_timestamp
         """
-        Get a timestamp (Unix Time (seconds)) for when the assignment submission was made at,
-        or None if there is no submission time.
+        When the submission attempt was made,
+        or None if there was no time sent with the submission.
         """
 
         ...
 
-def is_late(assignment: , submission):
+    ...
+
+def is_late(assignment: Assignment, submission: Submission) -> bool:
     # Check if the assignment has a due date.
     # Timestamps are in Unix Time: https://en.wikipedia.org/wiki/Unix_time
-    due_timestamp = assignment.get_due_at_timestamp()
+    due_timestamp = assignment.due_at_timestamp
     if (due_timestamp is None):
         return False
 
-    # Get the timestamp for the submission, or now if there is no timestamp.
-    submission_timestamp = student_submission.get_submission_timestamp()
+    # Get the timestamp for the submission.
+    submission_timestamp = student_submission.submission_timestamp
     if (submission_timestamp is None):
         return False
 
