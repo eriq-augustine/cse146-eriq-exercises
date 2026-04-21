@@ -1,7 +1,8 @@
 import math
 
 def optimize(weights: list[float], variables: list[float], labels: list[float],
-        iterations: int = 100000, step_size: float,
+        step_size: float,
+        iterations: int = 100000,
         ) -> float:
     """
     Optimize the weights to minimize the loss.
